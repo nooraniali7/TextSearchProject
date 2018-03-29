@@ -1,15 +1,37 @@
-//
-//  main.c
-//  TextSearchProject
-//
-//  Created by Ali Noorani on 3/28/18.
-//  Copyright © 2018 Ali Noorani. All rights reserved.
-//
+//COMP 137 Project
 
 #include <stdio.h>
+#include <stdlib.h>
+
+//PUT METHOD HEADERS HERE
+
+#define MAXCHAR 10000
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    printf("Hello Everybody!\n");
+    if(argc != 3){
+        printf("Invalid number of arguments: <executable> <text to find> <file to search>\n");
+        return 0;
+    }
+    char textSearch[100];
+    char fileName[100];
+    char path[100] = "./testFiles/";
+    char fileText[MAXCHAR];
+    FILE *fp;
+    
+    strcpy(textSearch,argv[1]);
+    strcpy(fileName,argv[2]);
+    printf("%s\n", textSearch);
+    strcat(path, fileName);
+    printf("%s\n",path);
+    if((fp = fopen(path, "r")) == NULL){
+        printf("Sorry, there was an error opening the file!\n");
+        return 0;
+    }
+    while(fgets(fileText, MAXCHAR, fp) != NULL){
+        printf("%s",fileText);
+    }
+    printf("\n");
+    fclose(fp);
+    
     return 0;
 }
