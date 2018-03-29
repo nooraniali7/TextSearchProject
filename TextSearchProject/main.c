@@ -5,7 +5,7 @@
 
 //PUT METHOD HEADERS HERE
 
-#define MAXCHAR 10000
+//#define MAXCHAR 10000
 
 int main(int argc, const char * argv[]) {
     if(argc != 3){
@@ -15,7 +15,8 @@ int main(int argc, const char * argv[]) {
     char textSearch[100];
     char fileName[100];
     char path[100] = "./testFiles/";
-    char fileText[MAXCHAR];
+    char currentWord[100];
+    //char fileText[MAXCHAR];
     FILE *fp;
     
     strcpy(textSearch,argv[1]);
@@ -27,8 +28,8 @@ int main(int argc, const char * argv[]) {
         printf("Sorry, there was an error opening the file!\n");
         return 0;
     }
-    while(fgets(fileText, MAXCHAR, fp) != NULL){
-        printf("%s",fileText);
+    while(fscanf(fp, "%s",currentWord) != EOF){
+        printf("%s\n",currentWord);
     }
     printf("\n");
     fclose(fp);
