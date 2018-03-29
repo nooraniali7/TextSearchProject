@@ -16,6 +16,7 @@ int main(int argc, const char * argv[]) {
     char fileName[100];
     char path[100] = "./testFiles/";
     char currentWord[100];
+    int index = 0;
     //char fileText[MAXCHAR];
     FILE *fp;
     
@@ -29,7 +30,10 @@ int main(int argc, const char * argv[]) {
         return 0;
     }
     while(fscanf(fp, "%s",currentWord) != EOF){
-        printf("%s\n",currentWord);
+        if(strcmp(textSearch,currentWord) == 0){
+            printf("%s at index %d\n",currentWord, index);
+        }
+        index++;
     }
     printf("\n");
     fclose(fp);
