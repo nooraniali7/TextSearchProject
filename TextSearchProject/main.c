@@ -26,6 +26,7 @@ int main(int argc, const char * argv[]) {
     int index = 0;
     //char fileText[MAXCHAR];
     FILE *fp;
+    printf("Hello World\n\n");
     
     strcpy(textSearch,argv[1]);
     strcpy(fileName,argv[2]);
