@@ -1,7 +1,14 @@
-//COMP 137 Project
+/*COMP 137 Project
+ *
+ *Compile: gcc -o main main.c
+ *Run: ./main <text to find> <file to search>
+ *
+ *
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 //PUT METHOD HEADERS HERE
 
@@ -30,7 +37,8 @@ int main(int argc, const char * argv[]) {
         return 0;
     }
     while(fscanf(fp, "%s",currentWord) != EOF){
-        if(strcmp(textSearch,currentWord) == 0){
+    //strcasecmp compares two strings to see if they are the same and disregards their case
+        if(strcasecmp(textSearch,currentWord) == 0){
             printf("%s at index %d\n",currentWord, index);
         }
         index++;
