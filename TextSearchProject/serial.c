@@ -11,9 +11,11 @@
 #include <string.h>
 
 //PUT METHOD HEADERS HERE
+void createShiftTable(char textSearch[]);
+int horspool(char fileContents[], char textSearch[]);
 
 #define MAXCHAR 100
-#define MAXFILECHAR 1000000
+
 int shiftTable[MAXCHAR];
 
 int main(int argc, const char * argv[]) {
@@ -47,37 +49,59 @@ int main(int argc, const char * argv[]) {
         i++;
     }
     printf("BOB\n");
-    for(i=0;i<MAXCHAR;i++){
+    /*for(i=0;i<MAXCHAR;i++){
         printf("%c",fileContents[i]);
+    }*/
+    createShiftTable(textSearch);
+    int position = horspool(fileContents, textSearch);
+    
+    int textLocation = horspool(fileContents,textSearch);
+    if(position>=0){
+        printf("The text begins on index %d.\n", position);
     }
-    //createShiftTable(textSearch);
-    //horspool(
+    else{
+        printf("Sorry, text not found\n");
+    }
 }
-    /*createShiftTable(textSearch);
     
 void createShiftTable(char textSearch[]){
-    int textSearchLength = strlen(textSearch);
+    int textSearchLength = strlen(textSearch); //m
     int i=0;
     int j=0;
     for(i=0;i<MAXCHAR;i++){
         shiftTable[i] = textSearchLength;
-    }
-    for(j=0;j<textSearchLength-1;j++){
-        shiftTable[textSearch[j]]=textSearchLength-1-j;
+        for(j=0;j<=textSearchLength-1;j++){
+            shiftTable[textSearch[j]] = textSearchLength-1-j;
+        }
     }
 }
 
-int horspool(
-*/
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+int horspool(char fileContents[], char textSearch[]){
+    int fileContentsLength = strlen(fileContents); //m
+    int textSearchLength = strlen(textSearch); //n
+    int i = textSearchLength-1;
+    int j=0; //secondary index //k
+    while(i<fileContentsLength){
+        j=0;
+        while((j<textSearchLength) && (textSearch[textSearchLength-1-j]==fileContents[i-j])){
+            j++;
+        }
+        if(j==textSearchLength){
+            return(i-textSearchLength+1);
+        }
+        else{
+            i = i+shiftTable[fileContents[i]];
+        }
+    }
+    return -1;
+}
+
+
+
+
+
+
+
+
+
+
