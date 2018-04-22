@@ -15,7 +15,6 @@ void createShiftTable(char textSearch[]);
 int horspool(char fileContents[], char textSearch[]);
 
 #define MAXCHAR 100
-
 int shiftTable[MAXCHAR];
 
 int main(int argc, const char * argv[]) {
@@ -28,7 +27,6 @@ int main(int argc, const char * argv[]) {
     char path[MAXCHAR] = "./testFiles/";
     char fileContents[MAXCHAR];
     int index = 0;
-    //char fileText[MAXCHAR];
     FILE *fp;
     
     strcpy(textSearch,argv[1]);
@@ -65,7 +63,7 @@ int main(int argc, const char * argv[]) {
 }
     
 void createShiftTable(char textSearch[]){
-    int textSearchLength = strlen(textSearch); //m
+    int textSearchLength = strlen(textSearch);
     int i=0;
     int j=0;
     for(i=0;i<MAXCHAR;i++){
@@ -77,10 +75,10 @@ void createShiftTable(char textSearch[]){
 }
 
 int horspool(char fileContents[], char textSearch[]){
-    int fileContentsLength = strlen(fileContents); //m
-    int textSearchLength = strlen(textSearch); //n
+    int fileContentsLength = strlen(fileContents);
+    int textSearchLength = strlen(textSearch);
     int i = textSearchLength-1;
-    int j=0; //secondary index //k
+    int j=0; //secondary index
     while(i<fileContentsLength){
         j=0;
         while((j<textSearchLength) && (textSearch[textSearchLength-1-j]==fileContents[i-j])){
