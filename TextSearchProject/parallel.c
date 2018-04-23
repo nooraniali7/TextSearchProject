@@ -11,22 +11,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-/*Brute Force Method
- *COMP 137 Project
- *
- *Compile: gcc -o main main.c
- *Run: ./main <text to find> <file to search>
- *
- *
- */
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 #define MAXCHAR 100
 
-void searchingString(char textSearch[], char fileContents[]);
+//void searchingString(char textSearch[], char fileContents[]);
 
 int main(int argc, const char * argv[]) {
     if(argc != 3){
