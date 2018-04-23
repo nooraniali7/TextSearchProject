@@ -1,8 +1,8 @@
 /*Parallel Brute Force Method
  *COMP 137 Project
  *
- *Compile: gcc -o main main.c
- *Run: ./main <text to find> <file to search>
+ *Compile: gcc -o parallel parallel.c
+ *Run: ./parallel <text to find> <file to search> <number of threads>
  *
  *
  */
@@ -14,27 +14,21 @@
 
 #define MAXCHAR 100
 
-int thread_count;
-
+//METHODS
 void* threadWork(void* rank);
 void searchingString(char textSearch[], char fileContents[]);
+
+//VARIABLES
+pthread_t* thread_handles;
+int numThreads;
 
 
 int main(int argc, const char * argv[]) {
     
     if(argc != 4){
-        printf("Invalid number of arguments: <executable> <text to find> <file to search> <# of threads>\n");
+        printf("Invalid number of arguments: <executable> <text to find> <file to search> <number of threads>\n");
         return 0;
     }
-    thread_count = strtol(argv[3], NULL, 10);
-
-    
-    // thread initialization
-    long thread;
-    pthread_t* thread_handles;
-    
-    // creating array of thread handles
-    thread_handles = malloc(thread_count*sizeof(pthread_t));
     
     char textSearch[MAXCHAR];
     char fileName[MAXCHAR];
@@ -59,22 +53,28 @@ int main(int argc, const char * argv[]) {
     for(i = 0;i < MAXCHAR; i++){
         printf("%c",fileContents[i]);
     }
+    printf("\n");
     
-    // starting threads, each w/ a unique rank
-    for (thread = 0; thread < thread_count; thread++)
-    {
-        pthread_create(&thread_handles[thread], NULL, threadWork, (void*) thread);
+    numThreads = strtol(argv[3], NULL, 10);
+    printf("Now using %d threads.\n",numThreads);
+    
+    long currThread;
+    //creating array of thread handles
+    thread_handles = malloc(numThreads*sizeof(pthread_t));
+    
+    //telling each particular thread to execute the function threadWork
+    for (currThread = 0; currThread < numThreads; currThread++){
+        pthread_create(&thread_handles[numThreads], NULL, threadWork, (void*) currThread);
     }
     
-    printf("\nHELLO FROM THE MAIN THREAD\n");
+    /* print a message from the main thread */
+    printf("Hello from the main thread\n");
     
     // waiting for threads to finish
-    for (thread = 0; thread < thread_count; thread++)
-    {
-        pthread_join(thread_handles[thread], NULL);
+    for (currThread = 0; currThread < numThreads; currThread++){
+        pthread_join(thread_handles[currThread], NULL);
     }
-    
-    
+    free(thread_handles);
     return 0;
 }
 
@@ -96,7 +96,7 @@ void searchingString(char textSearch[], char fileContents[]){
 
 void* threadWork(void* rank) {
     long my_rank = (long) rank;
-    printf("\nHello from thread %ld of %d", my_rank, thread_count);
+    printf("Hello from thread %ld of %d\n", my_rank, numThreads);
     return NULL;
 }
 
