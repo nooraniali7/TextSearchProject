@@ -46,12 +46,14 @@ int main(int argc, const char * argv[]) {
     for(i=0;i<MAXCHAR;i++){
         printf("%c",fileContents[i]);
     }
+    printf("\n");
     searchingString(textSearch, fileContents);
 }
 
 void searchingString(char textSearch[], char fileContents[]){
     int textSearchLength = strlen(textSearch);
     int fileContentsLength = strlen(fileContents);
+    int counter = 0;
     int j=0;
     for(int i=0;i<=fileContentsLength-textSearchLength;i++){
         for(j=0;j<textSearchLength;j++){
@@ -66,24 +68,6 @@ void searchingString(char textSearch[], char fileContents[]){
 }
 
 
-
-
-/*
- int counter = 0;
- int i=0;
- int j=0;
- for(i=0;i<strlen(fileContents);i++){
- for(j=0;j<strlen(textSearch);j++){
- if(fileContents[i] == textSearch[j]){
- counter++;
- printf("%c, %c\n",fileContents[i],textSearch[j]);
- if(counter == strlen(textSearch)){
- printf("Found String at index %d.\n",i);
- counter = 0;
- }
- }
- }
- }*/
 
 
 
