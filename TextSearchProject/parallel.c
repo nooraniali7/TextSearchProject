@@ -1,3 +1,16 @@
+/*Parallel Brute Force Method
+ *COMP 137 Project
+ *
+ *Compile: gcc -o main main.c
+ *Run: ./main <text to find> <file to search>
+ *
+ *
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 /*Brute Force Method
  *COMP 137 Project
  *
@@ -24,7 +37,6 @@ int main(int argc, const char * argv[]) {
     char fileName[MAXCHAR];
     char path[MAXCHAR] = "./testFiles/";
     char fileContents[MAXCHAR];
-    int index = 0;
     FILE *fp;
     
     strcpy(textSearch,argv[1]);
@@ -47,28 +59,5 @@ int main(int argc, const char * argv[]) {
         printf("%c",fileContents[i]);
     }
     printf("\n");
-    searchingString(textSearch, fileContents);
 }
-
-void searchingString(char textSearch[], char fileContents[]){
-    long textSearchLength = strlen(textSearch);
-    long fileContentsLength = strlen(fileContents);
-    int j=0;
-    for(int i=0;i<=fileContentsLength-textSearchLength;i++){
-        for(j=0;j<textSearchLength;j++){
-            if(fileContents[i+j] != textSearch[j]){
-                break;
-            }
-        }
-        if(j==textSearchLength){
-            printf("String found at index %d.\n",i);
-        }
-    }
-}
-
-
-
-
-
-
 
