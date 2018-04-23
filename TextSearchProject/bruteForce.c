@@ -50,23 +50,40 @@ int main(int argc, const char * argv[]) {
 }
 
 void searchingString(char textSearch[], char fileContents[]){
-    int counter = 0;
-    int i=0;
+    int textSearchLength = strlen(textSearch);
+    int fileContentsLength = strlen(fileContents);
     int j=0;
-    for(i=0;i<strlen(fileContents);i++){
-        for(j=0;j<strlen(textSearch);j++){
-            if(fileContents[i] == textSearch[j]){
-                counter++;
-                printf("%c, %c\n",fileContents[i],textSearch[j]);
-                if(counter == strlen(textSearch)){
-                    printf("Found String at index %d.\n",i);
-                    counter = 0;
-                }
+    for(int i=0;i<=fileContentsLength-textSearchLength;i++){
+        for(j=0;j<textSearchLength;j++){
+            if(fileContents[i+j] != textSearch[j]){
+                break;
             }
+        }
+        if(j==textSearchLength){
+            printf("String found at index %d.\n",i);
         }
     }
 }
 
+
+
+
+/*
+ int counter = 0;
+ int i=0;
+ int j=0;
+ for(i=0;i<strlen(fileContents);i++){
+ for(j=0;j<strlen(textSearch);j++){
+ if(fileContents[i] == textSearch[j]){
+ counter++;
+ printf("%c, %c\n",fileContents[i],textSearch[j]);
+ if(counter == strlen(textSearch)){
+ printf("Found String at index %d.\n",i);
+ counter = 0;
+ }
+ }
+ }
+ }*/
 
 
 
