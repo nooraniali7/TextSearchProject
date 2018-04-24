@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E97E288208EC41000027784 /* parallel.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E97E287208EC41000027784 /* parallel.c */; };
 		1E9FE88A206C4259004F3D10 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 1E9FE889206C4259004F3D10 /* main.c */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +24,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1E97E287208EC41000027784 /* parallel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = parallel.c; sourceTree = "<group>"; };
 		1E9FE886206C4259004F3D10 /* TextSearchProject */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TextSearchProject; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E9FE889206C4259004F3D10 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -58,6 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				1E9FE889206C4259004F3D10 /* main.c */,
+				1E97E287208EC41000027784 /* parallel.c */,
 			);
 			path = TextSearchProject;
 			sourceTree = "<group>";
@@ -119,6 +122,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E97E288208EC41000027784 /* parallel.c in Sources */,
 				1E9FE88A206C4259004F3D10 /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

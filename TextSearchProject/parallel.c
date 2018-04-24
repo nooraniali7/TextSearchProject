@@ -21,6 +21,9 @@ void searchingString(char textSearch[], char fileContents[]);
 //VARIABLES
 pthread_t* thread_handles;
 int numThreads;
+char fileContents[MAXCHAR];
+char textSearch[MAXCHAR];
+pthread_mutex_t mutex;
 
 
 int main(int argc, const char * argv[]) {
@@ -30,10 +33,9 @@ int main(int argc, const char * argv[]) {
         return 0;
     }
     
-    char textSearch[MAXCHAR];
     char fileName[MAXCHAR];
     char path[MAXCHAR] = "./testFiles/";
-    char fileContents[MAXCHAR];
+    
     FILE *fp;
     strcpy(textSearch,argv[1]);
     strcpy(fileName,argv[2]);
@@ -96,7 +98,76 @@ void searchingString(char textSearch[], char fileContents[]){
 
 void* threadWork(void* rank) {
     long my_rank = (long) rank;
+    long my_index;
+    long partitionSize = strlen(fileContents)/numThreads;
+    printf("PARTITION SIZE: %ld\n",partitionSize);
+    int i=0;
+    int j=0;
+    
+    //my_index is the beginning of the char array
+    //that the thread will get
+    
+    if(my_rank == 0){
+        my_index = partitionSize*my_rank;//my_index is my_first_i
+    }
+    else{
+        my_index = partitionSize*my_rank;//-strlen(textSearch);
+    }
+    long my_last_index = my_index+partitionSize;//+strlen(textSearch);
+    printf("FIRST INDEX: %ld\n",my_index);
+    printf("LAST INDEX: %ld\n",my_last_index);
+    
+    
+    pthread_mutex_lock(&mutex);
+    for(i=0;i<=my_last_index;i++){
+        for(j=0;j<strlen(textSearch);j++){
+            pthread_mutex_lock(&mutex);
+            if(fileContents[i+j] != textSearch[j]){
+                break;
+            }
+            pthread_mutex_unlock(&mutex);
+        }
+        //pthread_mutex_lock(&mutex);
+        if(j==strlen(textSearch)){
+            printf("String found at index %d.\n",i);
+        }
+        //pthread_mutex_unlock(&mutex);
+    }
+    
+    
+    
+//    for(int i=0;i<=fileContentsLength-textSearchLength;i++){
+//        for(j=0;j<textSearchLength;j++){
+//            if(fileContents[i+j] != textSearch[j]){
+//                break;
+//            }
+//        }
+//        if(j==textSearchLength){
+//            printf("String found at index %d.\n",i);
+//        }
+//    }
+    
+    
+    
+    
+//    for (i = my_first_i; i < my_last_i; i++, factor = -factor) {
+//        pthread_mutex_lock(&mutex);
+//        sum += factor/(2*i+1);
+//        pthread_mutex_unlock(&mutex);
+//    }
+    
+    
+    
     printf("Hello from thread %ld of %d\n", my_rank, numThreads);
     return NULL;
 }
+
+
+
+
+
+
+
+
+
 
