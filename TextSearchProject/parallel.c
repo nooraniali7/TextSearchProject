@@ -17,12 +17,15 @@
 //METHODS
 void* threadWork(void* rank);
 void searchingString(char textSearch[], char fileContents[]);
+int cmpfunc (const void * a, const void * b);
 
 //VARIABLES
 pthread_t* thread_handles;
 int numThreads;
+int indexValForArray = 0;
 char fileContents[MAXCHAR];
 char textSearch[MAXCHAR];
+int indexArray[];
 pthread_mutex_t mutex;
 
 
@@ -77,8 +80,22 @@ int main(int argc, const char * argv[]) {
     for (currThread = 0; currThread < numThreads; currThread++){
         pthread_join(thread_handles[currThread], NULL);
     }
+    
+    //PRINTING OUT THE INDICES WHERE THE STRING IS FOUND
+    
+    
+    qsort(indexArray, indexValForArray, sizeof(int), cmpfunc);
+    printf("\n");
+    printf("The text was found at indices: \n");
+    for(i=0;i<indexValForArray;i++){
+        printf("%d\n",indexArray[i]);
+    }
     free(thread_handles);
     return 0;
+}
+
+int cmpfunc (const void * a, const void * b) {
+    return ( *(int*)a - *(int*)b );
 }
 
 void searchingString(char textSearch[], char fileContents[]){
@@ -129,9 +146,10 @@ void* threadWork(void* rank) {
         }
         if(j==strlen(textSearch)){
             printf("String found at index %d.\n",i);
+            indexArray[indexValForArray] = i;
+            indexValForArray++;
         }
     }
-
     //printf("Hello from thread %ld of %d\n", my_rank, numThreads);
     return NULL;
 }
