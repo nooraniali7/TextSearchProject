@@ -69,9 +69,9 @@ int main(int argc, const char * argv[]) {
     long currThread;
     //creating array of thread handles
     
-    start = getTime();
-    thread_handles = malloc(numThreads*sizeof(pthread_t));
     
+    thread_handles = malloc(numThreads*sizeof(pthread_t));
+    start = getTime();
     //telling each particular thread to execute the function threadWork
     for (currThread = 0; currThread < numThreads; currThread++){
         pthread_create(&thread_handles[currThread], NULL, threadWork, (void*) currThread);

@@ -12,7 +12,7 @@
 #include <string.h>
 #include <time.h>
 
-#define MAXCHAR 100
+#define MAXCHAR 1000000
 
 //METHODS
 void searchingString(char textSearch[], char fileContents[]);
