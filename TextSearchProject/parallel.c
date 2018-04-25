@@ -12,7 +12,7 @@
 #include <string.h>
 #include <pthread.h>
 
-#define MAXCHAR 100
+#define MAXCHAR 1000000
 
 //METHODS
 void* threadWork(void* rank);
@@ -39,13 +39,14 @@ int main(int argc, const char * argv[]) {
     FILE *fp;
     strcpy(textSearch,argv[1]);
     strcpy(fileName,argv[2]);
-    printf("%s\n", textSearch);
+    //printf("%s\n", textSearch);
     strcat(path, fileName);
-    printf("%s\n",path);
+    //printf("%s\n",path);
     if((fp = fopen(path, "r")) == NULL){
         printf("Sorry, there was an error opening the file!\n");
         return 0;
     }
+    
     int i = 0;
     char currChar;
     while((currChar = fgetc(fp)) != EOF){
@@ -53,7 +54,7 @@ int main(int argc, const char * argv[]) {
         i++;
     }
     for(i = 0;i < MAXCHAR; i++){
-        printf("%c",fileContents[i]);
+        //printf("%c",fileContents[i]);
     }
     printf("\n");
     
@@ -70,7 +71,7 @@ int main(int argc, const char * argv[]) {
     }
     
     /* print a message from the main thread */
-    printf("Hello from the main thread\n");
+    //printf("Hello from the main thread\n");
     
     // waiting for threads to finish
     for (currThread = 0; currThread < numThreads; currThread++){
@@ -113,6 +114,7 @@ void* threadWork(void* rank) {
     else{
         my_index = partitionSize*my_rank;//-strlen(textSearch);
     }
+    
     long my_last_index = my_index+partitionSize;//+strlen(textSearch);
     //printf("FIRST INDEX: %ld\n",my_index);
     //printf("LAST INDEX: %ld\n",my_last_index);
@@ -129,41 +131,7 @@ void* threadWork(void* rank) {
             printf("String found at index %d.\n",i);
         }
     }
-    
-    
-    
-//    for(int i=0;i<=fileContentsLength-textSearchLength;i++){
-//        for(j=0;j<textSearchLength;j++){
-//            if(fileContents[i+j] != textSearch[j]){
-//                break;
-//            }
-//        }
-//        if(j==textSearchLength){
-//            printf("String found at index %d.\n",i);
-//        }
-//    }
-    
-    
-    
-    
-//    for (i = my_first_i; i < my_last_i; i++, factor = -factor) {
-//        pthread_mutex_lock(&mutex);
-//        sum += factor/(2*i+1);
-//        pthread_mutex_unlock(&mutex);
-//    }
-    
-    
-    
+
     //printf("Hello from thread %ld of %d\n", my_rank, numThreads);
     return NULL;
 }
-
-
-
-
-
-
-
-
-
-
