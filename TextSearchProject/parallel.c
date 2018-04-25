@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <pthread.h>
+#include <time.h>
 
 #define MAXCHAR 1000000
 
@@ -18,6 +19,7 @@
 void* threadWork(void* rank);
 void searchingString(char textSearch[], char fileContents[]);
 int cmpfunc (const void * a, const void * b);
+float getTime();
 
 //VARIABLES
 pthread_t* thread_handles;
@@ -30,7 +32,7 @@ pthread_mutex_t mutex;
 
 
 int main(int argc, const char * argv[]) {
-    
+    float start, finished, elapsed;
     if(argc != 4){
         printf("Invalid number of arguments: <executable> <text to find> <file to search> <number of threads>\n");
         return 0;
@@ -66,6 +68,8 @@ int main(int argc, const char * argv[]) {
     
     long currThread;
     //creating array of thread handles
+    
+    start = getTime();
     thread_handles = malloc(numThreads*sizeof(pthread_t));
     
     //telling each particular thread to execute the function threadWork
@@ -81,9 +85,11 @@ int main(int argc, const char * argv[]) {
         pthread_join(thread_handles[currThread], NULL);
     }
     
-    //PRINTING OUT THE INDICES WHERE THE STRING IS FOUND
+    finished = getTime();
+    elapsed = finished - start;
     
     
+    //PRINTING OUT THE INDICES WHERE THE STRING IS FOUND AFTER SORTING
     qsort(indexArray, indexValForArray, sizeof(int), cmpfunc);
     printf("\n");
     printf("The text was found at indices: \n");
@@ -91,11 +97,17 @@ int main(int argc, const char * argv[]) {
         printf("%d\n",indexArray[i]);
     }
     free(thread_handles);
+    printf("Elapsed Time: %f\n",elapsed);
     return 0;
 }
 
 int cmpfunc (const void * a, const void * b) {
     return ( *(int*)a - *(int*)b );
+}
+
+float getTime(){
+    clock_t t = clock();
+    return ((float)t)/CLOCKS_PER_SEC;
 }
 
 void searchingString(char textSearch[], char fileContents[]){
