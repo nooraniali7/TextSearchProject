@@ -10,12 +10,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #define MAXCHAR 100
 
+//METHODS
 void searchingString(char textSearch[], char fileContents[]);
+float getTime();
+
+//VARIABLES
+int indexArray[];
+int indexValForArray = 0;
+
 
 int main(int argc, const char * argv[]) {
+    float start, finished, elapsed;
     if(argc != 3){
         printf("Invalid number of arguments: <executable> <text to find> <file to search>\n");
         return 0;
@@ -47,7 +56,15 @@ int main(int argc, const char * argv[]) {
         printf("%c",fileContents[i]);
     }
     printf("\n");
+    start = getTime();
     searchingString(textSearch, fileContents);
+    finished = getTime();
+    elapsed = finished - start;
+    printf("The text was found at indices: \n");
+    for(i=0;i<indexValForArray;i++){
+        printf("%d\n",indexArray[i]);
+    }
+    printf("Elapsed Time: %f\n",elapsed);
 }
 
 void searchingString(char textSearch[], char fileContents[]){
@@ -62,8 +79,15 @@ void searchingString(char textSearch[], char fileContents[]){
         }
         if(j==textSearchLength){
             printf("String found at index %d.\n",i);
+            indexArray[indexValForArray] = i;
+            indexValForArray++;
         }
     }
+}
+
+float getTime(){
+    clock_t t = clock();
+    return ((float)t)/CLOCKS_PER_SEC;
 }
 
 
