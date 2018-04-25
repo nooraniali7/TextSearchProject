@@ -66,7 +66,7 @@ int main(int argc, const char * argv[]) {
     
     //telling each particular thread to execute the function threadWork
     for (currThread = 0; currThread < numThreads; currThread++){
-        pthread_create(&thread_handles[numThreads], NULL, threadWork, (void*) currThread);
+        pthread_create(&thread_handles[currThread], NULL, threadWork, (void*) currThread);
     }
     
     /* print a message from the main thread */
@@ -100,7 +100,7 @@ void* threadWork(void* rank) {
     long my_rank = (long) rank;
     long my_index;
     long partitionSize = strlen(fileContents)/numThreads;
-    printf("PARTITION SIZE: %ld\n",partitionSize);
+    //printf("PARTITION SIZE: %ld\n",partitionSize);
     int i=0;
     int j=0;
     
@@ -114,24 +114,20 @@ void* threadWork(void* rank) {
         my_index = partitionSize*my_rank;//-strlen(textSearch);
     }
     long my_last_index = my_index+partitionSize;//+strlen(textSearch);
-    printf("FIRST INDEX: %ld\n",my_index);
-    printf("LAST INDEX: %ld\n",my_last_index);
+    //printf("FIRST INDEX: %ld\n",my_index);
+    //printf("LAST INDEX: %ld\n",my_last_index);
     
     
-    pthread_mutex_lock(&mutex);
-    for(i=0;i<=my_last_index;i++){
+    for(i=my_index;i<=my_last_index;i++){
         for(j=0;j<strlen(textSearch);j++){
             pthread_mutex_lock(&mutex);
             if(fileContents[i+j] != textSearch[j]){
                 break;
             }
-            pthread_mutex_unlock(&mutex);
         }
-        //pthread_mutex_lock(&mutex);
         if(j==strlen(textSearch)){
             printf("String found at index %d.\n",i);
         }
-        //pthread_mutex_unlock(&mutex);
     }
     
     
@@ -158,7 +154,7 @@ void* threadWork(void* rank) {
     
     
     
-    printf("Hello from thread %ld of %d\n", my_rank, numThreads);
+    //printf("Hello from thread %ld of %d\n", my_rank, numThreads);
     return NULL;
 }
 
