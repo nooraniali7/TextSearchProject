@@ -138,15 +138,13 @@ void* threadWork(void* rank) {
     //that the thread will get
     
     if(my_rank == 0){
-        my_index = partitionSize*my_rank;//my_index is my_first_i
+        my_index = partitionSize*my_rank;
     }
     else{
-        my_index = partitionSize*my_rank;//-strlen(textSearch);
+        my_index = partitionSize*my_rank;
     }
     
-    long my_last_index = my_index+partitionSize;//+strlen(textSearch);
-    //printf("FIRST INDEX: %ld\n",my_index);
-    //printf("LAST INDEX: %ld\n",my_last_index);
+    long my_last_index = my_index+partitionSize;
     
     
     for(i=my_index;i<=my_last_index;i++){
@@ -162,6 +160,6 @@ void* threadWork(void* rank) {
             indexValForArray++;
         }
     }
-    //printf("Hello from thread %ld of %d\n", my_rank, numThreads);
+    
     return NULL;
 }

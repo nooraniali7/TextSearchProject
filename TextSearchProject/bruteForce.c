@@ -1,8 +1,8 @@
 /*Brute Force Method
  *COMP 137 Project
  *
- *Compile: gcc -o main main.c
- *Run: ./main <text to find> <file to search>
+ *Compile: gcc -o bruteForce bruteForce.c
+ *Run: ./bruteForce <text to find> <file to search>
  *
  *
  */
