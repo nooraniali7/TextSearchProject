@@ -33,6 +33,7 @@ int main(int argc, const char * argv[]) {
     char fileName[MAXCHAR];
     char path[MAXCHAR] = "./testFiles/";
     char fileContents[MAXCHAR];
+    //char *fileContents = malloc(MAXCHAR*sizeof(char));
     int index = 0;
     FILE *fp;
     
